@@ -1,0 +1,38 @@
+# Stack «piano»: curso de iniciación al piano → https://piano.cheru.org
+#
+# Código: /home/dietpi/data/repos/clases-piano
+# Datos:  /home/dietpi/data/containers/piano (base de datos SQLite piano.db: cuentas y progreso)
+# Despliegue: ./deploy.sh
+
+services:
+  piano:
+    image: piano:latest
+    user: "1000:1000"
+    environment:
+      - TZ=Europe/Madrid
+      - DATA_DIR=/data
+    volumes:
+      - /home/dietpi/data/containers/piano:/data
+    networks:
+      - traefik_proxy
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == chemagic
+      restart_policy:
+        condition: any
+        delay: 5s
+      labels:
+        - traefik.enable=true
+        - traefik.swarm.network=traefik_proxy
+        - traefik.http.routers.piano.rule=Host(`piano.cheru.org`)
+        - traefik.http.routers.piano.entrypoints=websecure
+        - traefik.http.routers.piano.tls=true
+        - traefik.http.routers.piano.tls.certresolver=cloudflare
+        - traefik.http.routers.piano.service=piano
+        - traefik.http.services.piano.loadbalancer.server.port=8080
+
+networks:
+  traefik_proxy:
+    external: true

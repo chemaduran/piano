@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "public/css/app.css"
+        ],
+        "createdAt": "2026-11-15T18:02:01.385Z",
+        "reason": "Claude: .rep-bar border-left is a literal musical barline in the repeat-signs diagram, not a card accent"
+      }
+    ]
+  }
+}

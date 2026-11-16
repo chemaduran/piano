@@ -1,0 +1,12 @@
+{
+  "name": "clases-piano",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Curso interactivo de iniciación al piano (piano.cheru.org)",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server/server.js",
+    "dev": "INSECURE_COOKIE=1 node --disable-warning=ExperimentalWarning --watch server/server.js"
+  }
+}
